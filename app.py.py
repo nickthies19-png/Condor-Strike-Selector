@@ -131,21 +131,22 @@ try:
     # DISPLAY RESULTS
     # ----------------------------
 col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("Underlying Info")
-        st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
-        st.write(f"**Strategy Expiry:** {expiration_date} ({days_to_expiration} DTE)")
-        st.write("---")
+    
+with col1:
+    st.subheader("Underlying Info")
+    st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
+    st.write(f"**Strategy Expiry:** {expiration_date} ({days_to_expiration} DTE)")
+    st.write("---")
 
-    with col2:
-        st.subheader("Strategy Results")
-        if strategy == "Iron Condor":
-            st.write(f"**Suggested Short Call Strike:** {call_strike}")
-            st.write(f"**Suggested Short Put Strike:** {put_strike}")
-            st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
-            st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
-            st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
-            st.write("---")
+with col2:
+    st.subheader("Strategy Results")
+    if strategy == "Iron Condor":
+        st.write(f"**Suggested Short Call Strike:** {call_strike}")
+        st.write(f"**Suggested Short Put Strike:** {put_strike}")
+        st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
+        st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
+        st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
+        st.write("---")
             
         if agree:
         # Create 2 columns
