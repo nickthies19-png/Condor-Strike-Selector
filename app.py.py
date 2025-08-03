@@ -43,10 +43,12 @@ with st.sidebar:
     st.caption("Enter a stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^NDX for NASDAQ‑100, ^SPX for S&P 500).")
     pct_OTM = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f") # stores default value of 2%, converts decimal to % for more natural user experience
     st.caption("Define the distance from current price for your short strikes. If you input 2%, the calculatro will suggest short call and short put strikes approx. 2% out-of-the-money")
+    pct_OTM = pct_OTM_input / 100 # converts to decimal for Black-Scholes math
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
     st.caption("Number of calendar days until the option expires")
-    risk_free_rate = st.sidebar.number_input("Risk-Free Rate (decimal)", value=0.05, step=0.01, format="%.1f") # stores default value of 5%, converts decimal to % for more natural user experience
+    risk_free_rate = st.sidebar.number_input("Risk-Free Rate (decimal)", value=5.0, step=0.1, format="%.1f") # stores default value of 5%, converts decimal to % for more natural user experience
     st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%).")
+    risk_free_rate = risk_free_rate_input / 100   # converts to decimal for Black-Scholes math
 
     st.sidebar.markdown("---")
     st.sidebar.write("Change inputs and the calculator updates instantly.")
