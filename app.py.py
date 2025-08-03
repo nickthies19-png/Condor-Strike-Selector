@@ -143,14 +143,19 @@ try:
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
         if agree:
-            st.markdown("###Call Stats")
-            st.write(f"**Short Call IV:** {call_iv:.2%}")
-            st.write(f"**Short Call Volume:** {call_volume}")
-            st.write(f"**Short Call Open Interest:** {call_oi}")
-            st.write(f"**Short Call Bid:** {call_bid}")
-            st.write(f"**Short Call Ask:** {call_ask}")
+            st.markdown("Short Call Stats")
+            st.write(f"**IV:** {call_iv:.2%}")
+            st.write(f"**Volume:** {call_volume}")
+            st.write(f"**Open Interest:** {call_oi}")
+            st.write(f"**Bid:** {call_bid}")
+            st.write(f"**Ask:** {call_ask}")
 
-            st.write(f"**Short Put IV:** {put_iv:.2%}")
+            st.markdown("Short Put Stats")
+            st.write(f"**IV:** {put_iv:.2%}")
+            st.write(f"**Volume:** {put_volume}")
+            st.write(f"**Open Interest:** {put_oi}")
+            st.write(f"**Bid:** {put_bid}")
+            st.write(f"**Ask:** {put_ask}")
 
     elif strategy == "Short Put":
         st.write(f"**Suggested Short Put Strike:** {put_strike}")
