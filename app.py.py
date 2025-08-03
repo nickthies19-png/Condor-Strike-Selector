@@ -112,18 +112,18 @@ try:
     st.write(f"**Expiration:** {expiration_date} ({days_to_expiration} DTE)")
     st.write("---")
     
-    if strategy == "Iron Condor"
+    if strategy == "Iron Condor":
     st.write(f"**Short Call Strike:** {call_strike}  | IV: {call_iv:.2%}")
     st.write(f"**Short Put Strike:** {put_strike}  | IV: {put_iv:.2%}")
     st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
     st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
     st.write(f" **Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
 
-    if strategy == "Short Put"
+    if strategy == "Short Put":
     st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
     st.markdown("---")
 
-    if strategy == "Short Call"
+    if strategy == "Short Call":
     st. markdown("---")
     st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
 
