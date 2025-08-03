@@ -130,7 +130,7 @@ try:
     # ----------------------------
     # DISPLAY RESULTS
     # ----------------------------
-    col1, col2 = st.columns(2)
+col1, col2 = st.columns(2)
     with col1:
         st.subheader("Underlying Info")
         st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
@@ -146,25 +146,26 @@ try:
             st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
             st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
             st.write("---")
-            if agree:
-                 # Create 2 columns
+            
+        if agree:
+        # Create 2 columns
         col1, col2 = st.columns(2)
-                #short call stats in left column
-                with col1:
-                    st.subheader("Short Call Stats")
-                    st.write(f"**IV:** {call_iv:.2%}")
-                    st.write(f"**Volume:** {call_volume}")
-                    st.write(f"**Open Interest:** {call_oi}")
-                    st.write(f"**Bid:** {call_bid}")
-                    st.write(f"**Ask:** {call_ask}")
-                #short put stats in right column
-                with col2:
-                    st.subheader("Short Put Stats")
-                    st.write(f"**IV:** {put_iv:.2%}")
-                    st.write(f"**Volume:** {put_volume}")
-                    st.write(f"**Open Interest:** {put_oi}")
-                    st.write(f"**Bid:** {put_bid}")
-                    st.write(f"**Ask:** {put_ask}")
+            #short call stats in left column
+            with col1:
+                st.subheader("Short Call Stats")
+                st.write(f"**IV:** {call_iv:.2%}")
+                st.write(f"**Volume:** {call_volume}")
+                st.write(f"**Open Interest:** {call_oi}")
+                st.write(f"**Bid:** {call_bid}")
+                st.write(f"**Ask:** {call_ask}")
+             #short put stats in right column
+            with col2:
+                st.subheader("Short Put Stats")
+                st.write(f"**IV:** {put_iv:.2%}")
+                st.write(f"**Volume:** {put_volume}")
+                st.write(f"**Open Interest:** {put_oi}")
+                st.write(f"**Bid:** {put_bid}")
+                st.write(f"**Ask:** {put_ask}")
 
         elif strategy == "Short Put":
             st.write(f"**Suggested Short Put Strike:** {put_strike}")
