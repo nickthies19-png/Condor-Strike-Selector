@@ -40,7 +40,7 @@ st.markdown("Estimates the probability that your short strikes will be touched b
 with st.sidebar:
     st.sidebar.header("Inputs")
     # Strategy selection
-    strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short call"])
+    strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short Call"])
     # Ticker input
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
     st.caption("Enter a stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^NDX for NASDAQ‑100, ^SPX for S&P 500).")
@@ -120,10 +120,12 @@ try:
         st.write(f" **Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
 
     elif strategy == "Short Put":
+        st.write(f"**Short Put Strike:** {put_strike}  | IV: {put_iv:.2%}")
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.markdown("---")
 
     elif strategy == "Short Call":
+        st.write(f"**Short Call Strike:** {call_strike}  | IV: {call_iv:.2%}")
         st. markdown("---")
         st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
 
