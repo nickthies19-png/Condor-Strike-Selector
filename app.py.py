@@ -143,7 +143,7 @@ try:
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
         if agree:
-            st:markdown("###Call Stats")
+            st.markdown("###Call Stats")
             st.write(f"**Short Call IV:** {call_iv:.2%}")
             st.write(f"**Short Call Volume:** {call_volume}")
             st.write(f"**Short Call Open Interest:** {call_oi}")
