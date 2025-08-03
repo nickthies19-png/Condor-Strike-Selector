@@ -38,18 +38,18 @@ st.markdown("Estimates the probability that your short strikes will be touched b
 
 # Sidebar Inputs
 with st.sidebar:
-st.sidebar.header("Inputs")
-ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
-st.caption("Enter a stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^NDX for NASDAQ‑100, ^SPX for S&P 500).")
-pct_OTM = st.sidebar.number_input("Percent OTM (e.g. 0.02 for 2%)", value=0.02, step=0.001)
-st.caption("Define the distance from current price for your short strikes (e.g. 0.02 = 2% out-of-the-money).")
-days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
-st.caption("Number of calendar days until the option expires")
-risk_free_rate = st.sidebar.number_input("Risk-Free Rate (decimal)", value=0.05, step=0.01)
-st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%).")
+    st.sidebar.header("Inputs")
+    ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
+    st.caption("Enter a stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^NDX for NASDAQ‑100, ^SPX for S&P 500).")
+    pct_OTM = st.sidebar.number_input("Percent OTM (e.g. 0.02 for 2%)", value=0.02, step=0.001)
+    st.caption("Define the distance from current price for your short strikes (e.g. 0.02 = 2% out-of-the-money).")
+    days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
+    st.caption("Number of calendar days until the option expires")
+    risk_free_rate = st.sidebar.number_input("Risk-Free Rate (decimal)", value=0.05, step=0.01)
+    st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%).")
 
-st.sidebar.markdown("---")
-st.sidebar.write("Change inputs and the calculator updates instantly.")
+    st.sidebar.markdown("---")
+    st.sidebar.write("Change inputs and the calculator updates instantly.")
 
 # ----------------------------
 # DATA FETCHING
