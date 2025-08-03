@@ -130,11 +130,14 @@ try:
     # ----------------------------
     # DISPLAY RESULTS
     # ----------------------------
+    col1, col2 = st.columns(2)
+    with col1:
     st.subheader("Underlying Info")
     st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
     st.write(f"**Strategy Expiry:** {expiration_date} ({days_to_expiration} DTE)")
     st.write("---")
 
+    with col2:
     st.subheader("Strategy Results")
     if strategy == "Iron Condor":
         st.write(f"**Suggested Short Call Strike:** {call_strike}")
