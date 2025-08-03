@@ -56,6 +56,8 @@ with st.sidebar:
     st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%).")
     risk_free_rate = risk_free_rate_input / 100   # converts to decimal for Black-Scholes math
 
+    agree=st.checkbox("Show Options Stats")
+
     st.sidebar.markdown("---")
     st.sidebar.write("Change inputs and the calculator updates instantly.")
 
