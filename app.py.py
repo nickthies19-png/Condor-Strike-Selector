@@ -148,7 +148,7 @@ try:
             st.write("---")
             if agree:
                  # Create 2 columns
-                col1, col2 = st.columns(2)
+        col1, col2 = st.columns(2)
                 #short call stats in left column
                 with col1:
                     st.subheader("Short Call Stats")
