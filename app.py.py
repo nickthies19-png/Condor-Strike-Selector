@@ -121,7 +121,7 @@ try:
         st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
-        if agree=true
+        if agree
             st.write(f"**IV: {call_iv}")
 
     elif strategy == "Short Put":
