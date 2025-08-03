@@ -109,13 +109,13 @@ try:
     # ----------------------------
     st.subheader("Underlying Info")
     st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
-    st.write(f"**Expiration:** {expiration_date} ({days_to_expiration} DTE)")
+    st.write(f"**Strategy Expiry:** {expiration_date} ({days_to_expiration} DTE)")
     st.write("---")
 
     st.subheader("Strategy Results")
     if strategy == "Iron Condor":
-        st.write(f"**Suggested Short Call Strike:** {call_strike}  | IV: {call_iv:.2%}")
-        st.write(f"**Suggested Short Put Strike:** {put_strike}  | IV: {put_iv:.2%}")
+        st.write(f"**Suggested Short Call Strike:** {call_strike}")
+        st.write(f"**Suggested Short Put Strike:** {put_strike}")
         st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.write(f" **Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
