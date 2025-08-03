@@ -37,7 +37,7 @@ st.title("Short Call/Short Put Probability of Touch Calculator")
 st.markdown("Estimates the probability that your short strikes will be touched before expiration.")
 
 # Sidebar Inputs
-with st.sidebar
+with st.sidebar:
 st.sidebar.header("Inputs")
 ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
 st.caption("Enter a stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^NDX for NASDAQ‑100, ^SPX for S&P 500).")
