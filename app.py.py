@@ -56,8 +56,8 @@ with st.sidebar:
     st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%).")
     risk_free_rate = risk_free_rate_input / 100   # converts to decimal for Black-Scholes math
 
-    agree=st.checkbox("Show Options Stats")
-
+    agree=st.checkbox("Show Stats for Suggested Strikes")
+    
     st.sidebar.markdown("---")
     st.sidebar.write("Change inputs and the calculator updates instantly.")
 
@@ -120,7 +120,9 @@ try:
         st.write(f"**Suggested Short Put Strike:** {put_strike}")
         st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
-        st.write(f" **Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
+        st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
+        if agree=true
+            st.write(f"**IV: {call_iv}")
 
     elif strategy == "Short Put":
         st.write(f"**Suggested Short Put Strike:** {put_strike}")
