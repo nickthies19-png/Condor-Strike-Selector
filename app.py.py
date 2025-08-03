@@ -107,8 +107,8 @@ try:
     # ----------------------------
     # DISPLAY RESULTS
     # ----------------------------
-    st.header("Underlying Info")
-    st.write(f"**Underlying Price:** {S:,.2f}")
+    st.subheader("Underlying Info")
+    st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
     st.write(f"**Expiration:** {expiration_date} ({days_to_expiration} DTE)")
     st.write("---")
 
