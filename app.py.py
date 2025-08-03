@@ -39,13 +39,19 @@ st.markdown("Estimates the probability that your short strikes will be touched b
 # Sidebar Inputs
 with st.sidebar:
     st.sidebar.header("Inputs")
+    # Strategy selection
+    strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short call"])
+    # Ticker input
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
     st.caption("Enter a stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^NDX for NASDAQ‑100, ^SPX for S&P 500).")
+    # % OTM Selection
     pct_OTM_input = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f") # stores default value of 2%, converts decimal to % for more natural user experience
     st.caption("Define the distance from current price for your short strikes. If you input 2%, the calculatro will suggest short call and short put strikes approx. 2% out-of-the-money")
     pct_OTM = pct_OTM_input / 100 # converts to decimal for Black-Scholes math
+    # Days  to expiration input
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
     st.caption("Number of calendar days until the option expires")
+    # Risk-free rate input
     risk_free_rate_input = st.sidebar.number_input("Risk-Free Rate (decimal)", value=5.0, step=0.1, format="%.1f") # stores default value of 5%, converts decimal to % for more natural user experience
     st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%).")
     risk_free_rate = risk_free_rate_input / 100   # converts to decimal for Black-Scholes math
@@ -101,18 +107,27 @@ try:
     # ----------------------------
     # DISPLAY RESULTS
     # ----------------------------
-    st.subheader("Results")
+    st.subheader("Strategy Results")
     st.write(f"**Underlying Price:** {S:,.2f}")
     st.write(f"**Expiration:** {expiration_date} ({days_to_expiration} DTE)")
+    st.write("---")
+    
+    if strategy == "Iron Condor"
     st.write(f"**Short Call Strike:** {call_strike}  | IV: {call_iv:.2%}")
     st.write(f"**Short Put Strike:** {put_strike}  | IV: {put_iv:.2%}")
-
-    st.markdown("---")
     st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
     st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
     st.write(f" **Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
+
+    if strategy == "Short Put"
+    st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
     st.markdown("---")
 
+    if strategy == "Short Call"
+    st. markdown("---")
+    st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
+
+    st.markdown("---")
     st.caption("POT is estimated from Black-Scholes delta. Actual outcomes depend on volatility, news, and market conditions.")
     st.caption("Disclaimer: This tool is for educational and informational purposes only. It is not financial advice, and nothing displayed here should be taken as a recommendation to buy or sell any security or options contract. Market data is provided by Yahoo Finance and may be delayed or inaccurate. Options trading involves significant risk and is not suitable for all investors. You are solely responsible for any financial decisions made based on the information from this tool.")
 
