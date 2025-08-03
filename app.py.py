@@ -92,8 +92,24 @@ try:
     call_strike = calls['strike'].iloc[(calls['strike'] - call_target).abs().argsort()[0]]
     put_strike = puts['strike'].iloc[(puts['strike'] - put_target).abs().argsort()[0]]
 
+    #get implied volatility for suggested strikes
     call_iv = calls.loc[calls['strike'] == call_strike, 'impliedVolatility'].iloc[0]
     put_iv = puts.loc[puts['strike'] == put_strike, 'impliedVolatility'].iloc[0]
+
+    #get open interest for suggested strikes
+    call_volume = call_row['volume'].iloc[0]
+    put_volume = put_row['volume'].iloc[0]
+
+    #get volume for suggested strikes
+    put_oi = put_row['openInterest'].iloc[0]
+    call_oi = call_row['openInterest'].iloc[0]
+
+    #get bid/ask for suggested strikes
+    put_bid = put_row['bid'].iloc[0]
+    put_ask = put_row['ask'].iloc[0]
+    call_bid = call_row['bid'].iloc[0]
+    call_ask = call_row['ask'].iloc[0]
+    
 
     # Calculate time to expiration in years
     T = days_to_expiration / 365.0
@@ -122,7 +138,13 @@ try:
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
         if agree:
+            st:markdown("###Call Stats"
             st.write(f"**Short Call IV:** {call_iv:.2%}")
+            st.write(f"**Short Call Volume:** {call_volume}")
+            st.write(f"**Short Call Open Interest:** {call_oi}")
+            st.write(f"**Short Call Bid:** {call_bid}")
+            st.write(f"**Short Call Ask:** {call_ask}")
+
             st.write(f"**Short Put IV:** {put_iv:.2%}")
 
     elif strategy == "Short Put":
