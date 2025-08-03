@@ -107,15 +107,7 @@ try:
     st.markdown("---")
 
     st.caption("POT is estimated from Black-Scholes delta. Actual outcomes depend on volatility, news, and market conditions.")
-    st.caption("Disclaimer: This tool is for educational and informational purposes only.
-It is not financial advice, and nothing displayed here should be taken as a
-recommendation to buy or sell any security or options contract.
-
-Market data is provided by Yahoo Finance and may be delayed or inaccurate.
-
-Options trading involves significant risk and is not suitable for all
-investors. You are solely responsible for any financial decisions made
-based on the information from this tool.")
+    st.caption("Disclaimer: This tool is for educational and informational purposes only. It is not financial advice, and nothing displayed here should be taken as a recommendation to buy or sell any security or options contract. Market data is provided by Yahoo Finance and may be delayed or inaccurate. Options trading involves significant risk and is not suitable for all investors. You are solely responsible for any financial decisions made based on the information from this tool.")
 
 except Exception as e:
     st.error(f"An error occurred: {e}")
