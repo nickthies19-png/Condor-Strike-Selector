@@ -122,22 +122,22 @@ try:
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
         if agree:
-            st.write(f"**Short Call IV:** {call_iv}")
-            st.write(f"**Short Put IV:** {put_iv}")
+            st.write(f"**Short Call IV:** {call_iv:.2%}")
+            st.write(f"**Short Put IV:** {put_iv:.2%}")
 
     elif strategy == "Short Put":
         st.write(f"**Suggested Short Put Strike:** {put_strike}")
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.markdown("---")
         if agree:
-            st.write(f"**Short Put IV:** {put_iv}")
+            st.write(f"**Short Put IV:** {put_iv:.2%}")
 
     elif strategy == "Short Call":
         st.write(f"**Suggested Short Call Strike:** {call_strike}")
         st. markdown("---")
         st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
         if agree:
-            st.write(f"**Short Call IV:** {call_iv}")
+            st.write(f"**Short Call IV:** {call_iv:.2%}")
 
     st.markdown("---")
     st.caption("POT is estimated from Black-Scholes delta. Actual outcomes depend on volatility, news, and market conditions.")
