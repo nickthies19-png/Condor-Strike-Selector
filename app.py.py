@@ -107,25 +107,26 @@ try:
     # ----------------------------
     # DISPLAY RESULTS
     # ----------------------------
-    st.subheader("Strategy Results")
+    st.header("Underlying Info")
     st.write(f"**Underlying Price:** {S:,.2f}")
     st.write(f"**Expiration:** {expiration_date} ({days_to_expiration} DTE)")
     st.write("---")
-    
+
+    st.subheader("Strategy Results")
     if strategy == "Iron Condor":
-        st.write(f"**Short Call Strike:** {call_strike}  | IV: {call_iv:.2%}")
-        st.write(f"**Short Put Strike:** {put_strike}  | IV: {put_iv:.2%}")
+        st.write(f"**Suggested Short Call Strike:** {call_strike}  | IV: {call_iv:.2%}")
+        st.write(f"**Suggested Short Put Strike:** {put_strike}  | IV: {put_iv:.2%}")
         st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.write(f" **Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
 
     elif strategy == "Short Put":
-        st.write(f"**Short Put Strike:** {put_strike}  | IV: {put_iv:.2%}")
+        st.write(f"**Suggested Short Put Strike:** {put_strike}  | IV: {put_iv:.2%}")
         st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
         st.markdown("---")
 
     elif strategy == "Short Call":
-        st.write(f"**Short Call Strike:** {call_strike}  | IV: {call_iv:.2%}")
+        st.write(f"**Suggested Short Call Strike:** {call_strike}  | IV: {call_iv:.2%}")
         st. markdown("---")
         st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
 
