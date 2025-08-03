@@ -91,6 +91,11 @@ try:
 
     call_strike = calls['strike'].iloc[(calls['strike'] - call_target).abs().argsort()[0]]
     put_strike = puts['strike'].iloc[(puts['strike'] - put_target).abs().argsort()[0]]
+    
+    # Get full row for the selected strikes
+    call_row = calls[calls['strike'] == call_strike]
+    put_row = puts[puts['strike'] == put_strike]
+
 
     #get implied volatility for suggested strikes
     call_iv = calls.loc[calls['strike'] == call_strike, 'impliedVolatility'].iloc[0]
