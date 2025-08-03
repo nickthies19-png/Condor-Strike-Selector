@@ -45,7 +45,7 @@ st.caption("Define the distance from current price for your short strikes (e.g. 
 days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
 st.caption("Number of calendar days until the option expires")
 risk_free_rate = st.sidebar.number_input("Risk-Free Rate (decimal)", value=0.05, step=0.01)
-st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%)."
+st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%).")
 
 st.sidebar.markdown("---")
 st.sidebar.write("Change inputs and the calculator updates instantly.")
