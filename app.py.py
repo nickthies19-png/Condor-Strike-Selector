@@ -147,7 +147,7 @@ try:
              # Create 2 columns
             col1, col2 = st.columns(2)
             #short call stats in left column
-            with: col1
+            with col1
                 st.subheader("Short Call Stats")
                 st.write(f"**IV:** {call_iv:.2%}")
                 st.write(f"**Volume:** {call_volume}")
@@ -155,7 +155,7 @@ try:
                 st.write(f"**Bid:** {call_bid}")
                 st.write(f"**Ask:** {call_ask}")
             #short put stats in right column
-            with:col2
+            with col2
                 st.subheader("Short Put Stats")
                 st.write(f"**IV:** {put_iv:.2%}")
                 st.write(f"**Volume:** {put_volume}")
