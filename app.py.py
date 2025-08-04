@@ -73,10 +73,12 @@ try:
     actual_days_to_expiration = (closest_expiration - datetime.today().date()).days
     expiration_date_str = closest_expiration.strftime("%Y-%m-%d")
 
+    # Pull option chain
     opt_chain = ticker.option_chain(expiration_date_str)
     calls = opt_chain.calls
     puts = opt_chain.puts
 
+    #Find closest strike
     call_target = S * (1 + pct_OTM)
     put_target = S * (1 - pct_OTM)
     
@@ -86,6 +88,7 @@ try:
     call_row = calls[calls['strike'] == call_strike]
     put_row = puts[puts['strike'] == put_strike]
 
+    #Pull data for suggested strikes
     call_iv = call_row['impliedVolatility'].iloc[0]
     put_iv = put_row['impliedVolatility'].iloc[0]
 
@@ -113,13 +116,11 @@ try:
     prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
     prob_neither_touch = 1 - prob_either_touch
 
-
-
 # ----------------------------
 # DISPLAY RESULTS
 # ----------------------------
     col1, col2 = st.columns(2)
-
+    #display strategy results
     with col1:
         st.markdown("### Strategy Results")
 
@@ -146,7 +147,8 @@ try:
         st.markdown("### Underlying Info")
         st.metric("Current Value", f"{S:,.2f}")
         st.write(f"**Strategy Expiry:** {closest_expiration.strftime('%b %d, %Y')} ({actual_days_to_expiration} DTE)")
-
+    
+    #Display suggested option stats if checkbox is checked
     if agree:
         col3, col4 = st.columns(2)
 
