@@ -130,7 +130,7 @@ try:
     # ----------------------------
     # DISPLAY RESULTS
     # ----------------------------
-    tab1, tab2, tab3, tab4 = st.tabs("Strategy Results", "Underlying Data, "Short Call Stats", "Short Put Stats")
+    tab1, tab2, tab3, tab4 = st.tabs(["Strategy Results", "Underlying Data, "Short Call Stats", "Short Put Stats"])
     with tab1:
         st.subheader("Strategy Results")
         if strategy == "Iron Condor":
