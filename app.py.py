@@ -140,16 +140,15 @@ try:
     
         # Show metrics depending on strategy
         if strategy == "Iron Condor":
-            m1, m2, m3 = st.columns(3)
+            m1, m2 = st.columns(2)
             with m1:
                 st.metric("Short Call Strike", f"{call_strike}")
                 st.write(f"**Short Call POT:** {call_pot:.1%}")
             with m2:
                 st.metric("Short Put Strike", f"{put_strike}")
                 st.write(f"**Short Put POT:** {put_pot:.1%}")
-            with m3:
-                st.metric(f"**Probability Neither Strike Touches:** :red[{prob_neither_touch:.1%}]")
-                
+           
+            st.metric(f"**Probability Neither Strike Touches:** :red[{prob_neither_touch:.1%}]")
             st.markdown("---")
     
         elif strategy == "Short Put":
