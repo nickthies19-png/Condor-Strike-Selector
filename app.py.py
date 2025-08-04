@@ -152,10 +152,10 @@ try:
             st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
     
     with tab2:
-    st.subheader("Underlying Info")
-    st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
-    st.write(f"**Strategy Expiry:** {expiration_date} ({days_to_expiration} DTE)")
-    st.write("---")
+        st.subheader("Underlying Info")
+        st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
+        st.write(f"**Strategy Expiry:** {expiration_date} ({days_to_expiration} DTE)")
+        st.write("---")
 
     with tab3:
         if strategy = "Short Call" and agree:
