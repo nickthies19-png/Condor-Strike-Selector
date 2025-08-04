@@ -102,7 +102,7 @@ try:
 
     T = actual_days_to_expiration / 365.0
 
-   pot_call = prob_touch(S, call_strike, T, call_iv)
+    pot_call = prob_touch(S, call_strike, T, call_iv)
     pot_put = prob_touch(S, put_strike, T, put_iv)
 
     # Clamp
