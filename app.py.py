@@ -152,11 +152,11 @@ try:
           
         elif strategy == "Short Put":
             st.metric("Short Put Strike", f"{put_strike}")
-            st.write(f"**Short Put POT:** {put_pot:.1%}")
+            st.subheader(f"**Short Put POT:** :red[{put_pot:.1%}]")
     
         elif strategy == "Short Call":
             st.metric("Short Call Strike", f"{call_strike}")
-            st.write(f"**Short Call POT:** {call_pot:.1%}")
+            st.subheader(f"**Short Call POT:** :red[{call_pot:.1%}]")
     
     with col2:
         st.markdown("### Underlying Info")
