@@ -17,19 +17,14 @@ from datetime import datetime
 # FUNCTIONS
 # ----------------------------
 def black_scholes_delta(S, K, T, r, sigma, option_type='call'):
-    """Calculate the Black-Scholes delta for a call or put."""
+    """Calculate the true Black-Scholes delta for a call or put."""
     d1 = (np.log(S/K) + (r + 0.5*sigma**2)*T) / (sigma*np.sqrt(T))
-    d2 = d1 - sigma * np.sqrt(T)
-    
     if option_type == 'call':
-        pot = 2 * norm.cdf(-d2)
-    else:  # put
-        pot = 2 * norm.cdf(d2)
-
-    return min(max(pot, 0.0), 1.0)  # clip just in case
+        return norm.cdf(d1)   # call delta
+    else:
+        return norm.cdf(d1) - 1  # put delta
 
 def pot_from_delta(S, K, T, r, sigma, option_type='call'):
-    """Approximate Probability of Touch as 2 × |Delta| (capped at 100%)."""
     delta = black_scholes_delta(S, K, T, r, sigma, option_type)
     return min(1, abs(delta) * 2)
 
