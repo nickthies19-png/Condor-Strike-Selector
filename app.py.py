@@ -136,7 +136,7 @@ try:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("###Strategy Results")
+        st.markdown("### Strategy Results")
     
         # Show metrics depending on strategy
         if strategy == "Iron Condor":
