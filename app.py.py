@@ -42,10 +42,10 @@ with st.sidebar:
     strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short Call"])
     # Ticker input
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
-    st.caption("Enter a stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^NDX for NASDAQ‑100, ^SPX for S&P 500).")
+    st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
     # % OTM Selection
     pct_OTM_input = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f") # stores default value of 2%, converts decimal to % for more natural user experience
-    st.caption("Define the distance from current price for your short strikes. If you input 2%, the calculatro will suggest short call and short put strikes approx. 2% out-of-the-money")
+    st.caption("Define desired distance from current price for your short strikes. If you input 2%, the calculator will suggest short call and short put strikes approx. 2% out-of-the-money")
     pct_OTM = pct_OTM_input / 100 # converts to decimal for Black-Scholes math
     # Days  to expiration input
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
@@ -137,18 +137,18 @@ try:
         if strategy == "Iron Condor":
             st.write(f"**Suggested Short Call Strike:** {call_strike}")
             st.write(f"**Suggested Short Put Strike:** {put_strike}")
-            st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
-            st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
+            st.write(f"**Short Call POT:** {call_pot:.1%}")
+            st.write(f"**Short Put POT:** {put_pot:.1%}")
             st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
             st.markdown("---")
 
         elif strategy == "Short Put":
             st.write(f"**Suggested Short Put Strike:** {put_strike}")
-            st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
+            st.write(f"**Short Put POT:** {put_pot:.1%}")
     
         elif strategy == "Short Call":
             st.write(f"**Suggested Short Call Strike:** {call_strike}")
-            st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
+            st.write(f"**Short Call POT:** {call_pot:.1%}")
             st.markdown("---")
     
     with col2:
