@@ -19,6 +19,8 @@ from datetime import datetime
 def black_scholes_delta(S, K, T, r, sigma, option_type='call'):
     """Calculate the Black-Scholes delta for a call or put."""
     d1 = (np.log(S/K) + (r + 0.5*sigma**2)*T) / (sigma*np.sqrt(T))
+    d2 = d1 - sigma * np.sqrt(T)
+    
     if option_type == 'call':
         pot = 2 * norm.cdf(-d2)
     else:  # put
