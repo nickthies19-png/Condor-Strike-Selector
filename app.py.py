@@ -7,21 +7,25 @@ from datetime import datetime, timedelta
 # ----------------------------
 # FUNCTIONS
 # ----------------------------
+from scipy.stats import norm
+import numpy as np
+
 def black_scholes_pot(S, K, T, r, sigma, option_type='call'):
-    if T <= 0 or sigma <= 0 or S <= 0 or K <= 0:
-        return 0.0
-    
-    try:
-        if option_type == 'call' and K > S:
-            z = (np.log(K / S) - (r - 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
-            return 2 * norm.cdf(z)
-        elif option_type == 'put' and K < S:
-            z = (np.log(S / K) - (r - 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
-            return 2 * norm.cdf(z)
-        else:
-            return 0.0  # for ITM options, touch is guaranteed so POT = 100%
-    except:
-        return 0.0
+    """
+    Returns the probability the strike price will be touched before expiration.
+    """
+    if T <= 0 or sigma <= 0:
+        return 0
+
+    d1 = (np.log(S / K) + (r + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
+    d2 = d1 - sigma * np.sqrt(T)
+
+    if option_type == 'call':
+        return 1 - norm.cdf(d2)
+    elif option_type == 'put':
+        return norm.cdf(-d2)
+    else:
+        raise ValueError("option_type must be 'call' or 'put'")
 
 # ----------------------------
 # STREAMLIT UI
@@ -110,6 +114,9 @@ try:
     # POT using Black-Scholes
     pot_call = black_scholes_pot(S, call_strike, T, risk_free_rate, call_iv, option_type='call')
     pot_put = black_scholes_pot(S, put_strike, T, risk_free_rate, put_iv, option_type='put')
+
+    pot_call = min(max(pot_call, 0), 1)
+    pot_put = min(max(pot_put, 0), 1)
 
     prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
     prob_neither_touch = 1 - prob_either_touch
