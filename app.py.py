@@ -107,8 +107,9 @@ try:
 
     T = actual_days_to_expiration / 365.0
 
-    pot_call = black_scholes_pot(S, K, T, r, sigma, option_type='call')
-    pot_put = black_scholes_pot(S, K, T, r, sigma, option_type='put')
+    # POT using Black-Scholes
+    pot_call = black_scholes_pot(S, call_strike, T, risk_free_rate, call_iv, option_type='call')
+    pot_put = black_scholes_pot(S, put_strike, T, risk_free_rate, put_iv, option_type='put')
 
     prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
     prob_neither_touch = 1 - prob_either_touch
