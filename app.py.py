@@ -7,16 +7,21 @@ from datetime import datetime, timedelta
 # ----------------------------
 # FUNCTIONS
 # ----------------------------
-def black_scholes_delta(S, K, T, r, sigma, option_type='call'):
-    d1 = (np.log(S / K) + (r + 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
-    if option_type == 'call':
-        return norm.cdf(d1)
-    else:
-        return norm.cdf(d1) - 1
-
-def pot_from_delta(S, K, T, r, sigma, option_type='call'):
-    delta = black_scholes_delta(S, K, T, r, sigma, option_type)
-    return min(1, abs(delta) * 2)
+def black_scholes_pot(S, K, T, r, sigma, option_type='call'):
+    if T <= 0 or sigma <= 0 or S <= 0 or K <= 0:
+        return 0.0
+    
+    try:
+        if option_type == 'call' and K > S:
+            z = (np.log(K / S) - (r - 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
+            return 2 * norm.cdf(z)
+        elif option_type == 'put' and K < S:
+            z = (np.log(S / K) - (r - 0.5 * sigma**2) * T) / (sigma * np.sqrt(T))
+            return 2 * norm.cdf(z)
+        else:
+            return 0.0  # for ITM options, touch is guaranteed so POT = 100%
+    except:
+        return 0.0
 
 # ----------------------------
 # STREAMLIT UI
