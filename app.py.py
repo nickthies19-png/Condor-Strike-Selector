@@ -32,8 +32,8 @@ def pot_from_delta(S, K, T, r, sigma, option_type='call'):
 # STREAMLIT UI
 # ----------------------------
 
-st.title("##Short Call/Short Put Probability of Touch Calculator")
-st.markdown("Estimates the probability that your short strikes will be touched before expiration.")
+st.title("Condor/Short Call/Short Put Probability of Touch Calculator")
+st.markdown("This tool estimates the probability that the underlying's price will touch your short strike(s) at any time before the contracts expire. Note- the probability of your short strike being touched before expiry is not the same as the probability of your short strike expiring in-the-money." To view probability of your short strike expiring in-the-money, reference the Delta of the contract. A delta of .35 = a 35% chance of the contract expiring in-the-money.)
 
 # Sidebar Inputs
 with st.sidebar:
