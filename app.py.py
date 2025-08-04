@@ -157,7 +157,7 @@ try:
     st.write("---")
 
     with tab3:
-        if agree:
+        if strategy = "Short Call" and agree:
         st.subheader("Short Call Stats")
         st.write(f"**IV:** {call_iv:.2%}")
         st.write(f"**Volume:** {call_volume}")
@@ -166,7 +166,7 @@ try:
         st.write(f"**Ask:** {call_ask}")
     
     with tab4:
-        if agree:
+        if strategy = "Short Put" and agree:
         st.subheader("Short Put Stats")
         st.write(f"**IV:** {put_iv:.2%}")
         st.write(f"**Volume:** {put_volume}")
