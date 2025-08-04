@@ -23,6 +23,12 @@ def black_scholes_pot(S, K, T, r, sigma, option_type='call'):
     except:
         return 0.0
 
+pot_call = black_scholes_pot(S, K_call, T, r, sigma, option_type='call')
+pot_put = black_scholes_pot(S, K_put, T, r, sigma, option_type='put')
+
+prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
+prob_neither_touch = 1 - prob_either_touch
+
 # ----------------------------
 # STREAMLIT UI
 # ----------------------------
