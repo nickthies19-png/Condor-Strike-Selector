@@ -10,22 +10,13 @@ from datetime import datetime, timedelta
 from scipy.stats import norm
 import numpy as np
 
-def black_scholes_pot(S, K, T, r, sigma, option_type='call'):
-    """
-    Returns the probability the strike price will be touched before expiration.
-    """
+def prob_touch(S, K, T, sigma):
     if T <= 0 or sigma <= 0:
         return 0
+    from math import log, sqrt, exp
+    from scipy.stats import norm
 
-    d1 = (np.log(S / K) + (r + 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
-    d2 = d1 - sigma * np.sqrt(T)
-
-    if option_type == 'call':
-        return 1 - norm.cdf(d2)
-    elif option_type == 'put':
-        return norm.cdf(-d2)
-    else:
-        raise ValueError("option_type must be 'call' or 'put'")
+    return 2 * (1 - norm.cdf(abs(log(S / K)) / (sigma * sqrt(T))))
 
 # ----------------------------
 # STREAMLIT UI
@@ -111,15 +102,17 @@ try:
 
     T = actual_days_to_expiration / 365.0
 
-    # POT using Black-Scholes
-    pot_call = black_scholes_pot(S, call_strike, T, risk_free_rate, call_iv, option_type='call')
-    pot_put = black_scholes_pot(S, put_strike, T, risk_free_rate, put_iv, option_type='put')
+   pot_call = prob_touch(S, call_strike, T, call_iv)
+    pot_put = prob_touch(S, put_strike, T, put_iv)
 
+    # Clamp
     pot_call = min(max(pot_call, 0), 1)
     pot_put = min(max(pot_put, 0), 1)
-
+    
+    # Combined logic
     prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
     prob_neither_touch = 1 - prob_either_touch
+
 
 
 # ----------------------------
