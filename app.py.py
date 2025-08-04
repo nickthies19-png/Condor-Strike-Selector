@@ -143,20 +143,20 @@ try:
             m1, m2 = st.columns(2)
             with m1:
                 st.metric("Short Call Strike", f"{call_strike}")
-                st.write(f"**POT:** {call_pot:.1%}")
+                st.write(f"**Short Call POT:** {call_pot:.1%}")
             with m2:
                 st.metric("Short Put Strike", f"{put_strike}")
-                st.write(f"**POT:** {put_pot:.1%}")
+                st.write(f"**Short Put POT:** {put_pot:.1%}")
             st.markdown("---")
             st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
     
         elif strategy == "Short Put":
             st.metric("Short Put Strike", f"{put_strike}")
-            st.write(f"**Probability of Touch:** {put_pot:.1%}")
+            st.write(f"**Short Put POT:** {put_pot:.1%}")
     
         elif strategy == "Short Call":
             st.metric("Short Call Strike", f"{call_strike}")
-            st.write(f"**Probability of Touch:** {call_pot:.1%}")
+            st.write(f"**Short Call POT:** {call_pot:.1%}")
     
     with col2:
         st.markdown("### Underlying Info")
