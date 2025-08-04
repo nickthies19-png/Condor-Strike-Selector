@@ -66,6 +66,8 @@ with st.sidebar:
 # ----------------------------
 # DATA FETCHING
 # ----------------------------
+import datetime
+
 try:
     ticker = yf.Ticker(ticker_symbol)
     S = ticker.info.get('regularMarketPrice', None)
@@ -74,20 +76,21 @@ try:
         st.error("⚠️ Could not fetch live price for this ticker.")
         st.stop()
 
-    expiration_date = expirations[0]
-    target_expiration_date = datetime.date.today() + datetime.timedelta(days=days_to_expiration)
-    
-    expirations = options_chain.options  # or wherever you're getting your list
-    closest_expiration = min((datetime.datetime.strptime(date, "%Y-%m-%d").date() for date in expirations),key=lambda d: d if d >= target_expiration_date else datetime.date.max)
-     
-    # Find the next available expiration date
     expirations = ticker.options
     if not expirations:
         st.error("⚠️ No options data found for this ticker.")
         st.stop()
 
-    # Pull the option chain for that date
-    opt_chain = ticker.option_chain(expiration_date)
+    # Find the closest expiration date >= today + days_to_expiration
+    target_expiration_date = datetime.date.today() + datetime.timedelta(days=days_to_expiration)
+    closest_expiration = min(
+        (datetime.datetime.strptime(date, "%Y-%m-%d").date() for date in expirations),
+        key=lambda d: abs(d - target_expiration_date) if d >= datetime.date.today() else datetime.timedelta(days=9999)
+    )
+
+    # Now fetch option chain for that expiration
+    expiration_date_str = closest_expiration.strftime("%Y-%m-%d")
+    opt_chain = ticker.option_chain(expiration_date_str)
     calls = opt_chain.calls
     puts = opt_chain.puts
 
@@ -97,41 +100,41 @@ try:
 
     call_strike = calls['strike'].iloc[(calls['strike'] - call_target).abs().argsort()[0]]
     put_strike = puts['strike'].iloc[(puts['strike'] - put_target).abs().argsort()[0]]
-    
+
     # Get full row for the selected strikes
     call_row = calls[calls['strike'] == call_strike]
     put_row = puts[puts['strike'] == put_strike]
 
+    # Implied volatility
+    call_iv = call_row['impliedVolatility'].iloc[0]
+    put_iv = put_row['impliedVolatility'].iloc[0]
 
-    #get implied volatility for suggested strikes
-    call_iv = calls.loc[calls['strike'] == call_strike, 'impliedVolatility'].iloc[0]
-    put_iv = puts.loc[puts['strike'] == put_strike, 'impliedVolatility'].iloc[0]
-
-    #get open interest for suggested strikes
+    # Volume
     call_volume = call_row['volume'].iloc[0]
     put_volume = put_row['volume'].iloc[0]
 
-    #get volume for suggested strikes
-    put_oi = put_row['openInterest'].iloc[0]
+    # Open Interest
     call_oi = call_row['openInterest'].iloc[0]
+    put_oi = put_row['openInterest'].iloc[0]
 
-    #get bid/ask for suggested strikes
-    put_bid = put_row['bid'].iloc[0]
-    put_ask = put_row['ask'].iloc[0]
+    # Bid/Ask
     call_bid = call_row['bid'].iloc[0]
     call_ask = call_row['ask'].iloc[0]
-    
+    put_bid = put_row['bid'].iloc[0]
+    put_ask = put_row['ask'].iloc[0]
 
-    # Calculate time to expiration in years
-    T = days_to_expiration / 365.0
+    # Time to expiration in years
+    T = (closest_expiration - datetime.date.today()).days / 365.0
 
-    # Calculate POT for each leg
+    # POT calculations
     call_pot = pot_from_delta(S, call_strike, T, risk_free_rate, call_iv, 'call')
     put_pot = pot_from_delta(S, put_strike, T, risk_free_rate, put_iv, 'put')
 
-    # Combined probabilities
     prob_either_touch = call_pot + put_pot - (call_pot * put_pot)
     prob_neither_touch = 1 - prob_either_touch
+
+except Exception as e:
+    st.error(f"❌ An error occurred: {e}")
 
     # ----------------------------
     # DISPLAY RESULTS
