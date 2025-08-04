@@ -130,8 +130,6 @@ try:
     # ----------------------------
     # DISPLAY RESULTS
     # ----------------------------
-    tab1, tab2, tab3, tab4 = st.tabs(["Strategy Results", "Underlying Data", "Short Call Stats", "Short Put Stats"])
-    with tab1:
         st.subheader("Strategy Results")
         if strategy == "Iron Condor":
             st.write(f"**Suggested Short Call Strike:** {call_strike}")
@@ -144,20 +142,16 @@ try:
         elif strategy == "Short Put":
             st.write(f"**Suggested Short Put Strike:** {put_strike}")
             st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
-            st.markdown("---")
             
         elif strategy == "Short Call":
             st.write(f"**Suggested Short Call Strike:** {call_strike}")
             st. markdown("---")
             st.write(f"**Probability of Touch (Call):** {call_pot:.1%}")
     
-    with tab2:
         st.subheader("Underlying Info")
         st.write(f"**{ticker_symbol} Current Value:** {S:,.2f}")
         st.write(f"**Strategy Expiry:** {expiration_date} ({days_to_expiration} DTE)")
-        st.write("---")
 
-    with tab3:
         if strategy == "Short Call" and agree:
             st.subheader("Short Call Stats")
             st.write(f"**IV:** {call_iv:.2%}")
@@ -166,7 +160,6 @@ try:
             st.write(f"**Bid:** {call_bid}")
             st.write(f"**Ask:** {call_ask}")
     
-    with tab4:
         if strategy == "Short Put" and agree:
             st.subheader("Short Put Stats")
             st.write(f"**IV:** {put_iv:.2%}")
