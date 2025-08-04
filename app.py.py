@@ -24,7 +24,7 @@ def black_scholes_delta(S, K, T, r, sigma, option_type='call'):
     else:  # put
         pot = 2 * norm.cdf(d2)
 
-     return min(max(pot, 0.0), 1.0)  # clip just in case
+    return min(max(pot, 0.0), 1.0)  # clip just in case
 
 def pot_from_delta(S, K, T, r, sigma, option_type='call'):
     """Approximate Probability of Touch as 2 × |Delta| (capped at 100%)."""
