@@ -50,7 +50,7 @@ with st.sidebar:
     # Days  to expiration input
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
     st.caption("Number of calendar days until the option expires")
-
+    risk_free_rate = 0.05 # sets default risk-free rate to 5%
     agree=st.checkbox("Use Risk-Free Rate Other Than 5%")
     if agree:
         # Risk-free rate input
