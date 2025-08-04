@@ -140,7 +140,8 @@ try:
             st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
             st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
             st.write("---")
-         elif strategy == "Short Put":
+         
+        elif strategy == "Short Put":
             st.write(f"**Suggested Short Put Strike:** {put_strike}")
             st.write(f"**Probability of Touch (Put):** {put_pot:.1%}")
             st.markdown("---")
