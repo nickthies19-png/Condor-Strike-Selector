@@ -52,7 +52,7 @@ with st.sidebar:
     st.caption("Number of calendar days until the option expires")
 
     agree=st.checkbox("Use Risk-Free Rate Other Than 5%")
-    if agree
+    if agree:
         # Risk-free rate input
         risk_free_rate_input = st.sidebar.number_input("Risk-Free Rate (decimal)", value=5.0, step=0.1, format="%.1f") # stores default value of 5%, converts decimal to % for more natural user experience
         st.caption("The risk‑free rate represents the theoretical return of a zero‑risk investment, often modeled using short‑term U.S. Treasury bill yields (currently around 5%).")
