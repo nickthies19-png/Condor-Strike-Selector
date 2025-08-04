@@ -136,31 +136,31 @@ try:
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("### 📊 Strategy Results")
+        st.markdown("###Strategy Results")
     
         # Show metrics depending on strategy
         if strategy == "Iron Condor":
             m1, m2 = st.columns(2)
             with m1:
-                st.metric("🎯 Short Call Strike", f"{call_strike}")
+                st.metric("Short Call Strike", f"{call_strike}")
                 st.write(f"**POT:** {call_pot:.1%}")
             with m2:
-                st.metric("🎯 Short Put Strike", f"{put_strike}")
+                st.metric("Short Put Strike", f"{put_strike}")
                 st.write(f"**POT:** {put_pot:.1%}")
             st.markdown("---")
             st.write(f"**Probability Neither Strike Touches:** {prob_neither_touch:.1%}")
     
         elif strategy == "Short Put":
-            st.metric("🎯 Short Put Strike", f"{put_strike}")
+            st.metric("Short Put Strike", f"{put_strike}")
             st.write(f"**Probability of Touch:** {put_pot:.1%}")
     
         elif strategy == "Short Call":
-            st.metric("🎯 Short Call Strike", f"{call_strike}")
+            st.metric("Short Call Strike", f"{call_strike}")
             st.write(f"**Probability of Touch:** {call_pot:.1%}")
     
     with col2:
-        st.markdown("### 📈 Underlying Info")
-        st.metric("📊 Current Value", f"{S:,.2f}")
+        st.markdown("### Underlying Info")
+        st.metric("Current Value", f"{S:,.2f}")
         st.write(f"**Strategy Expiry:** {expiration_date} ({days_to_expiration} DTE)")
     
     # Second row of boxes (Short Call Stats | Short Put Stats)
@@ -168,7 +168,7 @@ try:
         col3, col4 = st.columns(2)
     
         with col3:
-            st.markdown("### 📉 Short Call Stats")
+            st.markdown("### Short Call Stats")
             if strategy in ["Iron Condor", "Short Call"]:
                 st.write(f"**IV:** {call_iv:.2%}")
                 st.write(f"**Volume:** {call_volume}")
@@ -179,7 +179,7 @@ try:
                 st.info("No Short Call position for this strategy.")
     
         with col4:
-            st.markdown("### 📈 Short Put Stats")
+            st.markdown("### Short Put Stats")
             if strategy in ["Iron Condor", "Short Put"]:
                 st.write(f"**IV:** {put_iv:.2%}")
                 st.write(f"**Volume:** {put_volume}")
