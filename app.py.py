@@ -74,13 +74,17 @@ try:
         st.error("⚠️ Could not fetch live price for this ticker.")
         st.stop()
 
+    expiration_date = expirations[0]
+    target_expiration_date = datetime.date.today() + datetime.timedelta(days=days_to_expiration)
+    
+    expirations = options_chain.options  # or wherever you're getting your list
+    closest_expiration = min((datetime.datetime.strptime(date, "%Y-%m-%d").date() for date in expirations),key=lambda d: d if d >= target_expiration_date else datetime.date.max)
+     
     # Find the next available expiration date
     expirations = ticker.options
     if not expirations:
         st.error("⚠️ No options data found for this ticker.")
         st.stop()
-
-    expiration_date = expirations[0]
 
     # Pull the option chain for that date
     opt_chain = ticker.option_chain(expiration_date)
