@@ -23,12 +23,6 @@ def black_scholes_pot(S, K, T, r, sigma, option_type='call'):
     except:
         return 0.0
 
-pot_call = black_scholes_pot(S, K_call, T, r, sigma, option_type='call')
-pot_put = black_scholes_pot(S, K_put, T, r, sigma, option_type='put')
-
-prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
-prob_neither_touch = 1 - prob_either_touch
-
 # ----------------------------
 # STREAMLIT UI
 # ----------------------------
@@ -113,11 +107,12 @@ try:
 
     T = actual_days_to_expiration / 365.0
 
-    call_pot = pot_from_delta(S, call_strike, T, risk_free_rate, call_iv, 'call')
-    put_pot = pot_from_delta(S, put_strike, T, risk_free_rate, put_iv, 'put')
+    pot_call = black_scholes_pot(S, K_call, T, r, sigma, option_type='call')
+    pot_put = black_scholes_pot(S, K_put, T, r, sigma, option_type='put')
 
-    prob_either_touch = call_pot + put_pot - (call_pot * put_pot)
+    prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
     prob_neither_touch = 1 - prob_either_touch
+
 
 # ----------------------------
 # DISPLAY RESULTS
