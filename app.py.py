@@ -32,7 +32,7 @@ def pot_from_delta(S, K, T, r, sigma, option_type='call'):
 # STREAMLIT UI
 # ----------------------------
 
-st.title("Short Call/Short Put Probability of Touch Calculator")
+st.title("##Short Call/Short Put Probability of Touch Calculator")
 st.markdown("Estimates the probability that your short strikes will be touched before expiration.")
 
 # Sidebar Inputs
@@ -183,7 +183,7 @@ try:
                 st.info("No Short Put position for this strategy.")
 
     st.markdown("---")
-    st.caption("POT is estimated from Black-Scholes delta. Actual outcomes depend on volatility, news, and market conditions.")
+    st.caption("POT is calculated using the Black-Scholes model, along with the assumptions this model makes. Actual outcomes depend on volatility, news, and market conditions.")
     st.caption("Disclaimer: This tool is for educational and informational purposes only. It is not financial advice, and nothing displayed here should be taken as a recommendation to buy or sell any security or options contract. Market data is provided by Yahoo Finance and may be delayed or inaccurate. Options trading involves significant risk and is not suitable for all investors. You are solely responsible for any financial decisions made based on the information from this tool.")
 
 except Exception as e:
