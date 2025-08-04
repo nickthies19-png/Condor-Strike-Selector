@@ -159,21 +159,21 @@ try:
 
     with tab3:
         if strategy == "Short Call" and agree:
-        st.subheader("Short Call Stats")
-        st.write(f"**IV:** {call_iv:.2%}")
-        st.write(f"**Volume:** {call_volume}")
-        st.write(f"**Open Interest:** {call_oi}")
-        st.write(f"**Bid:** {call_bid}")
-        st.write(f"**Ask:** {call_ask}")
+            st.subheader("Short Call Stats")
+            st.write(f"**IV:** {call_iv:.2%}")
+            st.write(f"**Volume:** {call_volume}")
+            st.write(f"**Open Interest:** {call_oi}")
+            st.write(f"**Bid:** {call_bid}")
+            st.write(f"**Ask:** {call_ask}")
     
     with tab4:
         if strategy == "Short Put" and agree:
-        st.subheader("Short Put Stats")
-        st.write(f"**IV:** {put_iv:.2%}")
-        st.write(f"**Volume:** {put_volume}")
-        st.write(f"**Open Interest:** {put_oi}")
-        st.write(f"**Bid:** {put_bid}")
-        st.write(f"**Ask:** {put_ask}")
+            st.subheader("Short Put Stats")
+            st.write(f"**IV:** {put_iv:.2%}")
+            st.write(f"**Volume:** {put_volume}")
+            st.write(f"**Open Interest:** {put_oi}")
+            st.write(f"**Bid:** {put_bid}")
+            st.write(f"**Ask:** {put_ask}")
 
     st.markdown("---")
     st.caption("POT is estimated from Black-Scholes delta. Actual outcomes depend on volatility, news, and market conditions.")
