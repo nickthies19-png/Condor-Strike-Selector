@@ -77,9 +77,9 @@ try:
     calls = opt_chain.calls
     puts = opt_chain.puts
 
-    call_target = round(S * (1 + pct_OTM) / 10) * 10
-    put_target = round(S * (1 - pct_OTM) / 10) * 10
-
+    call_target = S * (1 + pct_OTM)
+    put_target = S * (1 - pct_OTM)
+    
     call_strike = calls['strike'].iloc[(calls['strike'] - call_target).abs().argsort()[0]]
     put_strike = puts['strike'].iloc[(puts['strike'] - put_target).abs().argsort()[0]]
 
