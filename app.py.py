@@ -148,7 +148,8 @@ try:
                 st.metric("Short Put Strike", f"{put_strike}")
                 st.write(f"**Short Put POT:** {put_pot:.1%}")
             st.markdown("---")
-            st.metric(f"**Probability Neither Strike Touches:** :red[{prob_neither_touch:.1%}]")
+            with m3:
+                st.metric(f"**Probability Neither Strike Touches:** :red[{prob_neither_touch:.1%}]")
     
         elif strategy == "Short Put":
             st.metric("Short Put Strike", f"{put_strike}")
