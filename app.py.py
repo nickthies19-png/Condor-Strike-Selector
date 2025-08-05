@@ -29,7 +29,7 @@ with st.sidebar:
     strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short Call"])
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
-    # Sidebar checkbox for custom input
+
     use_custom_strikes = st.sidebar.checkbox("Enter my own strike(s)")
     if use_custom_strikes:
         custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
@@ -39,8 +39,8 @@ with st.sidebar:
 
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
     st.caption("Number of calendar days until the option expires.")
+
     risk_free_rate = 0.05
-    
     if st.checkbox("Use Risk-Free Rate Other Than 5%"):
         risk_free_rate_input = st.sidebar.number_input("Risk-Free Rate (decimal)", value=5.0, step=0.1, format="%.1f")
         risk_free_rate = risk_free_rate_input / 100
@@ -57,47 +57,45 @@ try:
     S = ticker.info.get('regularMarketPrice', None)
 
     if S is None:
-        st.error("⚠️ Could not fetch live price for this ticker.")
+        st.error("\u26a0\ufe0f Could not fetch live price for this ticker.")
         st.stop()
 
     expirations = ticker.options
     if not expirations:
-        st.error("⚠️ No options data found for this ticker.")
+        st.error("\u26a0\ufe0f No options data found for this ticker.")
         st.stop()
 
-    # Find closest valid expiration >= desired target date
     target_expiration_date = datetime.today().date() + timedelta(days=days_to_expiration)
     expiration_dates = [datetime.strptime(date, "%Y-%m-%d").date() for date in expirations]
     future_expirations = [d for d in expiration_dates if d >= datetime.today().date()]
     if not future_expirations:
-        st.error("⚠️ No future expiration dates available.")
+        st.error("\u26a0\ufe0f No future expiration dates available.")
         st.stop()
 
     closest_expiration = min(future_expirations, key=lambda d: abs(d - target_expiration_date))
     actual_days_to_expiration = (closest_expiration - datetime.today().date()).days
     expiration_date_str = closest_expiration.strftime("%Y-%m-%d")
 
-    # Pull option chain
     opt_chain = ticker.option_chain(expiration_date_str)
     calls = opt_chain.calls
     puts = opt_chain.puts
 
-    #Find closest strike
     if use_custom_strikes:
         call_strike = float(custom_call_strike)
         put_strike = float(custom_put_strike)
-        
     else:
-        call_target = S * (1 + pct_OTM)
-        put_target = S * (1 - pct_OTM)
+        call_target = S * (1 + pct_OTM / 100)
+        put_target = S * (1 - pct_OTM / 100)
         call_strike = calls['strike'].iloc[(calls['strike'] - call_target).abs().argsort()[0]]
         put_strike = puts['strike'].iloc[(puts['strike'] - put_target).abs().argsort()[0]]
-
 
     call_row = calls[calls['strike'] == call_strike]
     put_row = puts[puts['strike'] == put_strike]
 
-    #Pull data for suggested strikes
+    if call_row.empty or put_row.empty:
+        st.error("\u26a0\ufe0f Strike price not available in options chain.")
+        st.stop()
+
     call_iv = call_row['impliedVolatility'].iloc[0]
     put_iv = put_row['impliedVolatility'].iloc[0]
 
@@ -114,23 +112,12 @@ try:
 
     T = actual_days_to_expiration / 365.0
 
-    if use_custom_strikes:
-        
-        pot_call = prob_touch(S, custom_call_strike, T, call_iv)
-        pot_put = prob_touch(S, custom_put_strike, T, put_iv)
+    pot_call = prob_touch(S, call_strike, T, call_iv)
+    pot_put = prob_touch(S, put_strike, T, put_iv)
 
-        call_strike = custom_call_strike
-        put_strike = custom_put_strike
-    
-    else:
-        pot_call = prob_touch(S, call_strike, T, call_iv)
-        pot_put = prob_touch(S, put_strike, T, put_iv)
-    
-    # Clamp
     pot_call = min(max(pot_call, 0), 1)
     pot_put = min(max(pot_put, 0), 1)
-        
-    # Combined logic
+
     prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
     prob_neither_touch = 1 - prob_either_touch
 
@@ -138,7 +125,6 @@ try:
 # DISPLAY RESULTS
 # ----------------------------
     col1, col2 = st.columns(2)
-    #display strategy results
     with col1:
         st.markdown("### Strategy Results")
 
@@ -165,8 +151,7 @@ try:
         st.markdown("### Underlying Info")
         st.metric("Current Value", f"{S:,.2f}")
         st.write(f"**Strategy Expiry:** {closest_expiration.strftime('%b %d, %Y')} ({actual_days_to_expiration} DTE)")
-    
-    #Display suggested option stats if checkbox is checked
+
     if agree:
         col3, col4 = st.columns(2)
 
