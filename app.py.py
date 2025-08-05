@@ -64,7 +64,7 @@ with st.sidebar:
         risk_free_rate = risk_free_rate_input / 100
         st.caption("Default risk free rate of 5% (apprx. current short-term treasury note yield) is applied")
 
-    #Option to show stats, (IV, OI, Bid/Ask, volume, etc.) for suggested or custom strikes
+    # Option to show stats, (IV, OI, Bid/Ask, volume, etc.) for suggested or custom strikes
     agree = st.checkbox("Show Stats for Suggested Strikes")
     st.sidebar.markdown("---")
     st.sidebar.write("Change inputs and the calculator updates instantly.")
@@ -96,7 +96,7 @@ try:
     actual_days_to_expiration = (closest_expiration - datetime.today().date()).days
     expiration_date_str = closest_expiration.strftime("%Y-%m-%d")
 
-    #Pull option chain for selected ticker
+    # Pull option chain for selected ticker
     opt_chain = ticker.option_chain(expiration_date_str)
     calls = opt_chain.calls
     puts = opt_chain.puts
@@ -120,7 +120,7 @@ try:
         st.error("\u26a0\ufe0f One or more of the strikes entered is not available in the options chain for this ticker")
         st.stop()
 
-    # Pull mplied Volatility & Market Data
+    # Pull implied Volatility & Market Data
     call_iv = call_row['impliedVolatility'].iloc[0] if call_row is not None else None
     put_iv = put_row['impliedVolatility'].iloc[0] if put_row is not None else None
 
@@ -149,7 +149,10 @@ try:
 # ----------------------------
 # DISPLAY RESULTS
 # ----------------------------
+    # Create 2 columns
     col1, col2 = st.columns(2)
+
+    # Column 1 displays strategy results (POT) 
     with col1:
         st.markdown("### Strategy Results")
 
@@ -172,14 +175,16 @@ try:
             st.metric("Short Call Strike", f"{call_strike}")
             st.subheader(f"**Short Call POT:** :red[{pot_call:.1%}]")
 
+    # Column 2 displays info of the underlying
     with col2:
         st.markdown("### Underlying Info")
         st.metric("Current Value", f"{S:,.2f}")
         st.write(f"**Strategy Expiry:** {closest_expiration.strftime('%b %d, %Y')} ({actual_days_to_expiration} DTE)")
 
+    # Displays 2 additional fields of data with suggested or custom strike data (IV, OI, Bid/Ask, volume, etc.)
     if agree:
         col3, col4 = st.columns(2)
-
+        
         with col3:
             st.markdown("### Short Call Stats")
             if strategy in ["Iron Condor", "Short Call"]:
@@ -203,7 +208,7 @@ try:
                 st.info("No Short Put position for this strategy.")
 
     st.markdown("---")
-    st.caption("Disclaimer: his tool is for educational and informational purposes only...")
+    st.caption("Disclaimer: This tool is for educational and informational purposes only. It is not financial advice, and nothing displayed here should be taken as a recommendation to buy or sell any security or options contract. Market data is provided by Yahoo Finance and may be delayed or inaccurate. Probabilities shown are calculations based on simplified models (e.g., Black‑Scholes) and assumptions (e.g., volatility, risk‑free rate) that may not reflect real market conditions. Options trading involves significant risk and is not suitable for all investors. You are solely responsible for any financial decisions made based on the information from this tool.")
     
 except Exception as e:
     st.error(f"Something went wrong: {e}")
