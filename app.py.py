@@ -85,7 +85,7 @@ try:
     #Find closest strike
     if use_custom_strikes:
         call_strike = float(custom_call_strike)
-        put_strike = float(custom_put_Strike)
+        put_strike = float(custom_put_strike)
         
     else:
         call_target = S * (1 + pct_OTM)
