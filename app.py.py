@@ -177,17 +177,7 @@ try:
                 st.info("No Short Put position for this strategy.")
 
     st.markdown("---")
-    st.caption("POT is calculated using the Black-Scholes model...")
-    st.caption("Disclaimer: his tool is for educational and informational purposes only. It is not financial advice, and nothing displayed here should be taken as a recommendation to buy or sell any security or options contract. 
-
-Market data is provided by Yahoo Finance and may be delayed or inaccurate.
-Probabilities shown are calculations based on simplified models (e.g., 
-Black‑Scholes) and assumptions (e.g., volatility, risk‑free rate) that may 
-not reflect real market conditions. 
-
-Options trading involves significant risk and is not suitable for all 
-investors. You are solely responsible for any financial decisions made 
-based on the information from this tool.")
+    st.caption("Disclaimer: his tool is for educational and informational purposes only. It is not financial advice, and nothing displayed here should be taken as a recommendation to buy or sell any security or options contract. Market data is provided by Yahoo Finance and may be delayed or inaccurate. Probabilities shown are calculations based on simplified models (e.g., Black‑Scholes) and assumptions (e.g., volatility, risk‑free rate) that may not reflect real market conditions. Options trading involves significant risk and is not suitable for all investors. You are solely responsible for any financial decisions made based on the information from this tool.")
 
 except Exception as e:
     st.error(f"An error occurred: {e}")
