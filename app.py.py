@@ -31,14 +31,14 @@ with st.sidebar:
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
 
     use_custom_strikes = st.sidebar.checkbox("Enter my own strike(s)")
-    if use_custom_strikes:
-            if strategy == "Short Call":
-                custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
-            elif: strategy == "Short Put":
-                custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
-            elif: strategy == "Iron Condor":
-                custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
-                custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
+    if use_custom_strikes:   
+        if strategy == "Iron Condor":
+            custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
+            custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
+         elif: strategy == "Short Call":
+            custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
+         elif: strategy == "Short Put":
+            custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
     else:
         pct_OTM = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
 
