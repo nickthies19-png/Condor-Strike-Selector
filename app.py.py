@@ -93,8 +93,8 @@ try:
         call_strike = calls['strike'].iloc[(calls['strike'] - call_target).abs().argsort()[0]]
         put_strike = puts['strike'].iloc[(puts['strike'] - put_target).abs().argsort()[0]]
 
-        call_target = min(call_strikes, key=lambda x: abs(x - call_target_price))
-        put_target = min(put_strikes, key=lambda x: abs(x - put_target_price))
+        call_target = min(call_strike, key=lambda x: abs(x - call_target_price))
+        put_target = min(put_strike, key=lambda x: abs(x - put_target_price))
 
     call_row = calls[calls['strike'] == call_strike]
     put_row = puts[puts['strike'] == put_strike]
