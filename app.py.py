@@ -32,8 +32,8 @@ with st.sidebar:
     # Sidebar checkbox for custom input
     use_custom_strikes = st.sidebar.checkbox("Enter my own strike(s)")
     if use_custom_strikes:
-        custom_strike_call = st.sidebar.number_input("Custom Call Strike", value=0.0, step=1.0)
-        custom_strike_put = st.sidebar.number_input("Custom Put Strike", value=0.0, step=1.0)
+        custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=0.0, step=1.0)
+        custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=0.0, step=1.0)
     else:
         pct_OTM = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
 
