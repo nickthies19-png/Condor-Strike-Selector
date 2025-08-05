@@ -33,8 +33,8 @@ with st.sidebar:
     use_custom_strikes = st.sidebar.checkbox("Enter my own strikes")
     if use_custom_strikes:
         st.sidebar.markdown("**Custom Strike Prices**")
-        custom_call_strike = st.sidebar.number_input("Custom Call Strike", min_value=0.0, value=23000.0)
-        custom_put_strike = st.sidebar.number_input("Custom Put Strike", min_value=0.0, value=22500.0)
+        custom_call_strike = st.sidebar.number_input("Custom Call Strike", min_value=0.0, value=0)
+        custom_put_strike = st.sidebar.number_input("Custom Put Strike", min_value=0.0, value=0)
     pct_OTM_input = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
     st.caption("Distance from current price for short strikes.")
     pct_OTM = pct_OTM_input / 100
