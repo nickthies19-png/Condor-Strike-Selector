@@ -36,12 +36,11 @@ with st.sidebar:
         custom_call_strike = st.sidebar.number_input("Custom Call Strike", min_value=0.0, value=100.0)
         custom_put_strike = st.sidebar.number_input("Custom Put Strike", min_value=0.0, value=100.0)
     if not use_custom_strikes:
-        pct_OTM = st.sidebar.slider("Percent OTM for Auto Strikes", 0.01, 0.20, 0.015, step=0.005)
-    else:
-        st.sidebar.markdown("ℹ️ % OTM disabled when using custom strikes.")
         pct_OTM_input = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
         st.caption("Distance from current price for short strikes.")
         pct_OTM = pct_OTM_input / 100
+    else:
+        st.sidebar.markdown("ℹ️ % OTM disabled when using custom strikes.")
 
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
     st.caption("Number of calendar days until the option expires.")
