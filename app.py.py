@@ -83,8 +83,12 @@ try:
     puts = opt_chain.puts
 
     #Find closest strike
-    call_target = S * (1 + pct_OTM)
-    put_target = S * (1 - pct_OTM)
+    if use_custom_strikes:
+        call_target = custom_strike_call
+        put_target = custom_strike_put
+    else:
+        call_target = S * (1 + pct_OTM)
+        put_target = S * (1 - pct_OTM)
     
     call_strike = calls['strike'].iloc[(calls['strike'] - call_target).abs().argsort()[0]]
     put_strike = puts['strike'].iloc[(puts['strike'] - put_target).abs().argsort()[0]]
