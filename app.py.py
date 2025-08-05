@@ -30,12 +30,12 @@ with st.sidebar:
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
     # Sidebar checkbox for custom input
-    use_custom_strikes = st.sidebar.checkbox("Use custom strikes")
+    use_custom_strikes = st.sidebar.checkbox("Enter my own strike(s)")
     if use_custom_strikes:
         custom_strike_call = st.sidebar.number_input("Custom Call Strike", value=0.0, step=1.0)
         custom_strike_put = st.sidebar.number_input("Custom Put Strike", value=0.0, step=1.0)
     else:
-        pct_OTM = st.sidebar.number_input("Percent OTM for Auto Strikes", min_value=0.01, max_value=0.20, value=0.015, step=0.005)
+        pct_OTM = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
 
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
     st.caption("Number of calendar days until the option expires.")
