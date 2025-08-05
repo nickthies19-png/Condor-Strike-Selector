@@ -113,8 +113,8 @@ try:
 
     if use_custom_strikes:
         st.sidebar.markdown("### Custom Strike Inputs")
-        custom_call_strike = st.sidebar.number_input("Short Call Strike", value=23000, step=5, format="%d")
-        custom_put_strike = st.sidebar.number_input("Short Put Strike", value=22000, step=5, format="%d")
+        custom_call_strike = st.sidebar.number_input("Short Call Strike", value=0, step=5, format="%d")
+        custom_put_strike = st.sidebar.number_input("Short Put Strike", value=0, step=5, format="%d")
         
         pot_call = prob_touch(S, custom_call_strike, T, call_iv)
         pot_put = prob_touch(S, custom_put_strike, T, put_iv)
