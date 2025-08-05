@@ -29,6 +29,8 @@ with st.sidebar:
     strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short Call"])
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
+    agree = st.checkbox("Enter my own strikes"):
+    if agree: 
     pct_OTM_input = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
     st.caption("Distance from current price for short strikes.")
     pct_OTM = pct_OTM_input / 100
@@ -176,7 +178,16 @@ try:
 
     st.markdown("---")
     st.caption("POT is calculated using the Black-Scholes model...")
-    st.caption("Disclaimer: This tool is for educational and informational purposes only...")
+    st.caption("Disclaimer: his tool is for educational and informational purposes only. It is not financial advice, and nothing displayed here should be taken as a recommendation to buy or sell any security or options contract. 
+
+Market data is provided by Yahoo Finance and may be delayed or inaccurate.
+Probabilities shown are calculations based on simplified models (e.g., 
+Black‑Scholes) and assumptions (e.g., volatility, risk‑free rate) that may 
+not reflect real market conditions. 
+
+Options trading involves significant risk and is not suitable for all 
+investors. You are solely responsible for any financial decisions made 
+based on the information from this tool.")
 
 except Exception as e:
     st.error(f"An error occurred: {e}")
