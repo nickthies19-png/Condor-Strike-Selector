@@ -22,7 +22,7 @@ def prob_touch(S, K, T, sigma):
 # STREAMLIT UI
 # ----------------------------
 st.title("Condor/Short Call/Short Put Probability of Touch (POT) Calculator")
-st.caption("This tool estimates the probability that the underlying's price will touch your short strike(s) at any time before the contracts expire...")
+st.caption("This tool estimates the probability that the underlying's price will touch your short strike(s) at any time before the contracts expire. This is not the same as the probability that your short strike(s) expire in-the-money, as price may touch your short strike(s) and and still expire out-of-the-money. For probability that your strikes expire in-the-money, see the Delta of the contract your are considering. A delta of .30 = a 30% chance that the strikes expires in-the-money")
 
 with st.sidebar:
     st.sidebar.header("Inputs")
