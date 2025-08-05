@@ -93,7 +93,7 @@ try:
     put_row = puts[puts['strike'] == put_strike]
 
     if call_row.empty or put_row.empty:
-        st.error("\u26a0\ufe0f Strike price not available in options chain.")
+        st.error("\u26a0\ufe0f One or more of the strikes entered is not available in the options chain for this ticker")
         st.stop()
 
     call_iv = call_row['impliedVolatility'].iloc[0]
