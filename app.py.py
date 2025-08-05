@@ -34,6 +34,10 @@ with st.sidebar:
     custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
     custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
     
+    # Always define the variables so they exist later
+    custom_call_strike = None
+    custom_put_strike = None
+    
     if use_custom_strikes:
         if strategy == "Iron Condor":
             custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
