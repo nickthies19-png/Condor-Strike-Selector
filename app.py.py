@@ -107,18 +107,25 @@ try:
 
     T = actual_days_to_expiration / 365.0
 
-if use_custom_strikes:
-    st.sidebar.markdown("### Custom Strike Inputs")
-    custom_call_strike = st.sidebar.number_input("Short Call Strike", value=23000, step=5, format="%d")
-    custom_put_strike = st.sidebar.number_input("Short Put Strike", value=22000, step=5, format="%d")
-    pot_call = prob_touch(S, call_strike, T, call_iv)
-    pot_put = prob_touch(S, put_strike, T, put_iv)
+    if use_custom_strikes:
+        st.sidebar.markdown("### Custom Strike Inputs")
+        custom_call_strike = st.sidebar.number_input("Short Call Strike", value=23000, step=5, format="%d")
+        custom_put_strike = st.sidebar.number_input("Short Put Strike", value=22000, step=5, format="%d")
+        
+        pot_call = prob_touch(S, custom_call_strike, T, call_iv)
+        pot_put = prob_touch(S, custom_put_strike, T, put_iv)
 
-else:
+        call_strike = custom_call_strike
+        put_strike = custom_put_strike
+    
+    else:
+        pot_call = prob_touch(S, call_strike, T, call_iv)
+        pot_put = prob_touch(S, put_strike, T, put_iv)
+    
     # Clamp
     pot_call = min(max(pot_call, 0), 1)
     pot_put = min(max(pot_put, 0), 1)
-    
+        
     # Combined logic
     prob_either_touch = pot_call + pot_put - (pot_call * pot_put)
     prob_neither_touch = 1 - prob_either_touch
