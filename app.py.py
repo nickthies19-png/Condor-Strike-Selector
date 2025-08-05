@@ -1,4 +1,22 @@
-# ... (keep your existing imports and function definitions)
+import streamlit as st
+import yfinance as yf
+import numpy as np
+from scipy.stats import norm
+from datetime import datetime, timedelta
+
+# ----------------------------
+# FUNCTIONS
+# ----------------------------
+from scipy.stats import norm
+import numpy as np
+
+def prob_touch(S, K, T, sigma):
+    if T <= 0 or sigma <= 0:
+        return 0
+    from math import log, sqrt, exp
+    from scipy.stats import norm
+
+    return 2 * (1 - norm.cdf(abs(log(S / K)) / (sigma * sqrt(T))))
 
 # ----------------------------
 # STREAMLIT UI
