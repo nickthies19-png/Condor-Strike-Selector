@@ -31,10 +31,6 @@ with st.sidebar:
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
     # Sidebar checkbox for custom input
     use_custom_strikes = st.sidebar.checkbox("Enter my own strikes")
-if use_custom_strikes:
-    st.sidebar.markdown("### Custom Strike Inputs")
-    custom_call_strike = st.sidebar.number_input("Short Call Strike", value=23000, step=5, format="%d")
-    custom_put_strike = st.sidebar.number_input("Short Put Strike", value=22000, step=5, format="%d")
     pct_OTM_input = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
     st.caption("Distance from current price for short strikes.")
     pct_OTM = pct_OTM_input / 100
@@ -111,9 +107,14 @@ try:
 
     T = actual_days_to_expiration / 365.0
 
+if use_custom_strikes:
+    st.sidebar.markdown("### Custom Strike Inputs")
+    custom_call_strike = st.sidebar.number_input("Short Call Strike", value=23000, step=5, format="%d")
+    custom_put_strike = st.sidebar.number_input("Short Put Strike", value=22000, step=5, format="%d")
     pot_call = prob_touch(S, call_strike, T, call_iv)
     pot_put = prob_touch(S, put_strike, T, put_iv)
 
+else:
     # Clamp
     pot_call = min(max(pot_call, 0), 1)
     pot_put = min(max(pot_put, 0), 1)
