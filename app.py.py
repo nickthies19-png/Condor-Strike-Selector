@@ -35,9 +35,9 @@ with st.sidebar:
         if strategy == "Iron Condor":
             custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
             custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
-         elif: strategy == "Short Call":
+        elif strategy == "Short Call":
             custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
-         elif: strategy == "Short Put":
+        elif strategy == "Short Put":
             custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
     else:
         pct_OTM = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
