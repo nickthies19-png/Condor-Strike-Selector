@@ -30,7 +30,12 @@ with st.sidebar:
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
     agree = st.checkbox("Enter my own strikes"):
-    if agree: 
+    if agree: # Sidebar checkbox for custom input
+    use_custom_strikes = st.sidebar.checkbox("Use Custom Strikes")
+if use_custom_strikes:
+    st.sidebar.markdown("### Custom Strike Inputs")
+    custom_call_strike = st.sidebar.number_input("Short Call Strike", value=23000, step=5, format="%d")
+    custom_put_strike = st.sidebar.number_input("Short Put Strike", value=22000, step=5, format="%d")
     pct_OTM_input = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
     st.caption("Distance from current price for short strikes.")
     pct_OTM = pct_OTM_input / 100
