@@ -28,10 +28,10 @@ with st.sidebar:
     st.sidebar.header("Inputs")
     # User Input for strategy type
     strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short Call"])
-    #User input for ticker
+    # User input for ticker
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500)")
-    #checkbox giving user option to enter their own strike(s) (custom strikes)
+    # Checkbox giving user option to enter their own strike(s) (custom strikes)
     use_custom_strikes = st.sidebar.checkbox("Enter my own strike(s)")
     
     # Initialize as None - making sure custom_call_strike and custom_put_strike are defined
@@ -48,20 +48,23 @@ with st.sidebar:
         elif strategy == "Short Put":
             custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
     
-    # standard % OTM field where user selects desired OTM %
+    # Standard % OTM field where user selects desired OTM %
     else:
         pct_OTM = st.sidebar.number_input("Percent OTM", value=2.0, step=0.1, format="%.1f")
         st.caption("Define how far out-of-the-money (expressed as a %) you wish your condor/short call/short put to be")
-                   
+
+    # Days to expiry input
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
     st.caption("Number of calendar days until the options expire")
 
+    # Risk-free rate input (conditional on if user decides to override 5% default)
     risk_free_rate = 0.05
     if st.checkbox("Use Risk-Free Rate Other Than 5%"):
         risk_free_rate_input = st.sidebar.number_input("Risk-Free Rate (decimal)", value=5.0, step=0.1, format="%.1f")
         risk_free_rate = risk_free_rate_input / 100
         st.caption("Default risk free rate of 5% (apprx. current short-term treasury note yield) is applied")
 
+    #Option to show stats, (IV, OI, Bid/Ask, volume, etc.) for suggested or custom strikes
     agree = st.checkbox("Show Stats for Suggested Strikes")
     st.sidebar.markdown("---")
     st.sidebar.write("Change inputs and the calculator updates instantly.")
@@ -93,6 +96,7 @@ try:
     actual_days_to_expiration = (closest_expiration - datetime.today().date()).days
     expiration_date_str = closest_expiration.strftime("%Y-%m-%d")
 
+    #Pull option chain for selected ticker
     opt_chain = ticker.option_chain(expiration_date_str)
     calls = opt_chain.calls
     puts = opt_chain.puts
@@ -116,7 +120,7 @@ try:
         st.error("\u26a0\ufe0f One or more of the strikes entered is not available in the options chain for this ticker")
         st.stop()
 
-    # Implied Volatility & Market Data
+    # Pull mplied Volatility & Market Data
     call_iv = call_row['impliedVolatility'].iloc[0] if call_row is not None else None
     put_iv = put_row['impliedVolatility'].iloc[0] if put_row is not None else None
 
