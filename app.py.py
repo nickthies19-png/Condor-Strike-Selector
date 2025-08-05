@@ -29,9 +29,8 @@ with st.sidebar:
     strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short Call"])
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
-    agree = st.checkbox("Enter my own strikes"):
-    if agree: # Sidebar checkbox for custom input
-    use_custom_strikes = st.sidebar.checkbox("Use Custom Strikes")
+    # Sidebar checkbox for custom input
+    use_custom_strikes = st.sidebar.checkbox("Enter my own strikes")
 if use_custom_strikes:
     st.sidebar.markdown("### Custom Strike Inputs")
     custom_call_strike = st.sidebar.number_input("Short Call Strike", value=23000, step=5, format="%d")
