@@ -1,22 +1,4 @@
-import streamlit as st
-import yfinance as yf
-import numpy as np
-from scipy.stats import norm
-from datetime import datetime, timedelta
-
-# ----------------------------
-# FUNCTIONS
-# ----------------------------
-from scipy.stats import norm
-import numpy as np
-
-def prob_touch(S, K, T, sigma):
-    if T <= 0 or sigma <= 0:
-        return 0
-    from math import log, sqrt, exp
-    from scipy.stats import norm
-
-    return 2 * (1 - norm.cdf(abs(log(S / K)) / (sigma * sqrt(T))))
+# ... (keep your existing imports and function definitions)
 
 # ----------------------------
 # STREAMLIT UI
@@ -32,9 +14,11 @@ with st.sidebar:
 
     use_custom_strikes = st.sidebar.checkbox("Enter my own strike(s)")
     
+    # Initialize as None
     custom_call_strike = None
     custom_put_strike = None
-    
+
+    # Conditional strike input fields
     if use_custom_strikes:
         if strategy == "Iron Condor":
             custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
@@ -89,40 +73,44 @@ try:
     calls = opt_chain.calls
     puts = opt_chain.puts
 
+    # Choose custom or calculated strikes
     if use_custom_strikes:
-        call_strike = float(custom_call_strike)
-        put_strike = float(custom_put_strike)
+        call_strike = float(custom_call_strike) if custom_call_strike is not None else None
+        put_strike = float(custom_put_strike) if custom_put_strike is not None else None
     else:
         call_target = S * (1 + pct_OTM / 100)
         put_target = S * (1 - pct_OTM / 100)
         call_strike = calls['strike'].iloc[(calls['strike'] - call_target).abs().argsort()[0]]
         put_strike = puts['strike'].iloc[(puts['strike'] - put_target).abs().argsort()[0]]
 
-    call_row = calls[calls['strike'] == call_strike]
-    put_row = puts[puts['strike'] == put_strike]
+    # Filter for available strikes
+    call_row = calls[calls['strike'] == call_strike] if call_strike is not None else None
+    put_row = puts[puts['strike'] == put_strike] if put_strike is not None else None
 
-    if call_row.empty or put_row.empty:
+    if (strategy in ["Iron Condor", "Short Call"] and (call_row is None or call_row.empty)) or \
+       (strategy in ["Iron Condor", "Short Put"] and (put_row is None or put_row.empty)):
         st.error("\u26a0\ufe0f One or more of the strikes entered is not available in the options chain for this ticker")
         st.stop()
 
-    call_iv = call_row['impliedVolatility'].iloc[0]
-    put_iv = put_row['impliedVolatility'].iloc[0]
+    # Implied Volatility & Market Data
+    call_iv = call_row['impliedVolatility'].iloc[0] if call_row is not None else None
+    put_iv = put_row['impliedVolatility'].iloc[0] if put_row is not None else None
 
-    call_volume = call_row['volume'].iloc[0]
-    put_volume = put_row['volume'].iloc[0]
+    call_volume = call_row['volume'].iloc[0] if call_row is not None else None
+    put_volume = put_row['volume'].iloc[0] if put_row is not None else None
 
-    call_oi = call_row['openInterest'].iloc[0]
-    put_oi = put_row['openInterest'].iloc[0]
+    call_oi = call_row['openInterest'].iloc[0] if call_row is not None else None
+    put_oi = put_row['openInterest'].iloc[0] if put_row is not None else None
 
-    call_bid = call_row['bid'].iloc[0]
-    call_ask = call_row['ask'].iloc[0]
-    put_bid = put_row['bid'].iloc[0]
-    put_ask = put_row['ask'].iloc[0]
+    call_bid = call_row['bid'].iloc[0] if call_row is not None else None
+    call_ask = call_row['ask'].iloc[0] if call_row is not None else None
+    put_bid = put_row['bid'].iloc[0] if put_row is not None else None
+    put_ask = put_row['ask'].iloc[0] if put_row is not None else None
 
     T = actual_days_to_expiration / 365.0
 
-    pot_call = prob_touch(S, call_strike, T, call_iv)
-    pot_put = prob_touch(S, put_strike, T, put_iv)
+    pot_call = prob_touch(S, call_strike, T, call_iv) if call_iv is not None else 0
+    pot_put = prob_touch(S, put_strike, T, put_iv) if put_iv is not None else 0
 
     pot_call = min(max(pot_call, 0), 1)
     pot_put = min(max(pot_put, 0), 1)
@@ -187,7 +175,7 @@ try:
                 st.info("No Short Put position for this strategy.")
 
     st.markdown("---")
-    st.caption("Disclaimer: his tool is for educational and informational purposes only. It is not financial advice, and nothing displayed here should be taken as a recommendation to buy or sell any security or options contract. Market data is provided by Yahoo Finance and may be delayed or inaccurate. Probabilities shown are calculations based on simplified models (e.g., Black‑Scholes) and assumptions (e.g., volatility, risk‑free rate) that may not reflect real market conditions. Options trading involves significant risk and is not suitable for all investors. You are solely responsible for any financial decisions made based on the information from this tool.")
-
+    st.caption("Disclaimer: his tool is for educational and informational purposes only...")
+    
 except Exception as e:
-    st.error(f"An error occurred: {e}")
+    st.error(f"Something went wrong: {e}")
