@@ -26,17 +26,19 @@ st.caption("This tool estimates the probability that the underlying's price will
 
 with st.sidebar:
     st.sidebar.header("Inputs")
+    # User Input for strategy type
     strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short Call"])
+    #User input for ticker
     ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
-    st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
-
+    st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500)")
+    #checkbox giving user option to enter their own strike(s) (custom strikes)
     use_custom_strikes = st.sidebar.checkbox("Enter my own strike(s)")
     
-    # Initialize as None
+    # Initialize as None - making sure custom_call_strike and custom_put_strike are defined
     custom_call_strike = None
     custom_put_strike = None
 
-    # Conditional strike input fields
+    # Custom strike input fields - only shows fields applicable to the strategy selected above.
     if use_custom_strikes:
         if strategy == "Iron Condor":
             custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
@@ -45,16 +47,20 @@ with st.sidebar:
             custom_call_strike = st.sidebar.number_input("Custom Call Strike", value=100.0, step=1.0)
         elif strategy == "Short Put":
             custom_put_strike = st.sidebar.number_input("Custom Put Strike", value=100.0, step=1.0)
+    
+    # standard % OTM field where user selects desired OTM %
     else:
-        pct_OTM = st.sidebar.number_input("Percent OTM)", value=2.0, step=0.1, format="%.1f")
-
+        pct_OTM = st.sidebar.number_input("Percent OTM", value=2.0, step=0.1, format="%.1f")
+        st.caption("Define how far out-of-the-money (expressed as a %) you wish your condor/short call/short put to be")
+                   
     days_to_expiration = st.sidebar.number_input("Days to Expiration", value=2, step=1)
-    st.caption("Number of calendar days until the option expires.")
+    st.caption("Number of calendar days until the options expire")
 
     risk_free_rate = 0.05
     if st.checkbox("Use Risk-Free Rate Other Than 5%"):
         risk_free_rate_input = st.sidebar.number_input("Risk-Free Rate (decimal)", value=5.0, step=0.1, format="%.1f")
         risk_free_rate = risk_free_rate_input / 100
+        st.caption("Default risk free rate of 5% (apprx. current short-term treasury note yield) is applied")
 
     agree = st.checkbox("Show Stats for Suggested Strikes")
     st.sidebar.markdown("---")
