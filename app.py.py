@@ -31,7 +31,7 @@ with st.sidebar:
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500).")
     # Sidebar checkbox for custom input
     use_custom_strikes = st.sidebar.checkbox("Enter my own strikes")
-        if use_custom_strikes:
+    if use_custom_strikes:
         st.sidebar.markdown("**Custom Strike Prices**")
         custom_call_strike = st.sidebar.number_input("Custom Call Strike", min_value=0.0, value=23000.0)
         custom_put_strike = st.sidebar.number_input("Custom Put Strike", min_value=0.0, value=22500.0)
