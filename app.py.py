@@ -75,10 +75,11 @@ with st.sidebar:
 try:
     ticker = yf.Ticker(ticker_symbol)
     S = ticker.info.get('regularMarketPrice', None)
+    current_price = data['Close'].iloc[-1]
     data = ticker.history(period="1d", interval="1m")
     previous_day_data = yf.download(ticker_symbol, period="2d")
     previous_close = previous_day_data['Close'].iloc[-2]
-    percentage_change = ((data - previous_close) / previous_close) * 100
+    percentage_change = ((current_price - previous_close) / previous_close) * 100
 
     if S is None:
         st.error("\u26a0\ufe0f Could not fetch live price for this ticker.")
