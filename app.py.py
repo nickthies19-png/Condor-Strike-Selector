@@ -77,13 +77,13 @@ try:
     S = ticker.info.get('regularMarketPrice', None)
     data = ticker.history(period="1d", interval="1m")
     current_price = data['Close'].iloc[-1] if not data.empty else None
+    
     previous_day_data = yf.download(ticker_symbol, period="2d")
-    if not previous_day_data.empty and len(previous_day_data) >= 2:
-        previous_close = previous_day_data['Close'].iloc[-2]
-        percentage_change = ((current_price - previous_close) / previous_close) * 100
-        formatted_change = f"{percentage_change:.2f}%"
-    else:
-        formatted_change = "N/A"
+    previous_close = previous_day_data['Close'].iloc[-2]
+    
+    percentage_change = ((current_price - previous_close) / previous_close) * 100
+    
+    formatted_change = f"{percentage_change:.2f}%"
 
     if S is None:
         st.error("\u26a0\ufe0f Could not fetch live price for this ticker.")
