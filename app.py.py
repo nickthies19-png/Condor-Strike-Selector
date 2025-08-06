@@ -186,9 +186,8 @@ try:
     # Column 2 displays info of the underlying
     with col2:
         st.markdown("### Underlying Info")
-        st.metric("Current Value", f"{S:,.2f}")
         st.metric(
-            label=f"{ticker_symbol.upper()} Price", 
+            label=f"{ticker_symbol.upper()} Current Value", 
             value=f"${current_price:.2f}",
             delta=formatted_change)
         st.write(f"**Strategy Expiry:** {closest_expiration.strftime('%b %d, %Y')} ({actual_days_to_expiration} DTE)")
