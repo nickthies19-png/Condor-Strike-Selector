@@ -8,14 +8,15 @@ from math import log, sqrt, exp
 # ----------------------------
 # FUNCTIONS
 # ----------------------------
-def prob_touch(S, K, T, sigma, r=0.05):
-    if S <= 0 or K <= 0 or T <= 0 or sigma <= 0:
-        return None
-    
-    d1 = (np.log(K / S) - (r - 0.5 * sigma ** 2) * T) / (sigma * np.sqrt(T))
-    pot = 1 - norm.cdf(d1)
-    return round(pot * 100, 2)
 
+def prob_touch(S, K, T, sigma):
+    if T <= 0 or sigma <= 0:
+        return 0
+    from math import log, sqrt, exp
+    from scipy.stats import norm
+
+    return 2 * (1 - norm.cdf(abs(log(S / K)) / (sigma * sqrt(T))))
+    
 # ----------------------------
 # STREAMLIT UI
 # ----------------------------
