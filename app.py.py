@@ -184,7 +184,6 @@ try:
     with col2:
         st.markdown("### Underlying Info")
         st.metric("Current Value", f"{S:,.2f}")
-        st.write(f"**% Change:** {percentage_change:.1%}")
         st.write(f"**Strategy Expiry:** {closest_expiration.strftime('%b %d, %Y')} ({actual_days_to_expiration} DTE)")
 
     # Displays 2 additional fields of data with suggested or custom strike data (IV, OI, Bid/Ask, volume, etc.)
