@@ -3,13 +3,11 @@ import yfinance as yf
 import numpy as np
 from scipy.stats import norm
 from datetime import datetime, timedelta
+from math import log, sqrt, exp
 
 # ----------------------------
 # FUNCTIONS
 # ----------------------------
-from scipy.stats import norm
-import numpy as np
-
 def prob_touch(S, K, T, sigma, r=0.05):
     if S <= 0 or K <= 0 or T <= 0 or sigma <= 0:
         return None
