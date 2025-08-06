@@ -81,7 +81,7 @@ try:
     if not previous_day_data.empty and len(previous_day_data) >= 2:
         previous_close = previous_day_data['Close'].iloc[-2]
         percentage_change = ((current_price - previous_close) / previous_close) * 100
-        formatted_change = f"{percentage_change:+.2f}%"
+        formatted_change = f"{percentage_change:.2f}%"
     else:
         formatted_change = "N/A"
 
