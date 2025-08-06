@@ -76,10 +76,14 @@ try:
     ticker = yf.Ticker(ticker_symbol)
     S = ticker.info.get('regularMarketPrice', None)
     data = ticker.history(period="1d", interval="1m")
-    current_price = data['Close'].iloc[-1]
+    current_price = data['Close'].iloc[-1] if not data.empty else None
     previous_day_data = yf.download(ticker_symbol, period="2d")
-    previous_close = previous_day_data['Close'].iloc[-2]
-    percentage_change = ((current_price - previous_close) / previous_close) * 100
+    if not previous_day_data.empty and len(previous_day_data) >= 2:
+        previous_close = previous_day_data['Close'].iloc[-2]
+        percentage_change = ((current_price - previous_close) / previous_close) * 100
+        formatted_change = f"{percentage_change:+.2f}%"
+    else:
+        formatted_change = "N/A"
 
     if S is None:
         st.error("\u26a0\ufe0f Could not fetch live price for this ticker.")
@@ -184,6 +188,7 @@ try:
     with col2:
         st.markdown("### Underlying Info")
         st.metric("Current Value", f"{S:,.2f}")
+        st.metric("% Change", f"{formatted_change:.2%}")
         st.write(f"**Strategy Expiry:** {closest_expiration.strftime('%b %d, %Y')} ({actual_days_to_expiration} DTE)")
 
     # Displays 2 additional fields of data with suggested or custom strike data (IV, OI, Bid/Ask, volume, etc.)
