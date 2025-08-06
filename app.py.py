@@ -80,11 +80,10 @@ try:
     
     previous_day_data = yf.download(ticker_symbol, period="2d")
 
-    previous_close = previous_day_data['Close'].iloc[-2]  # Also should be a float
-    
-    percentage_change = ((current_price - previous_close) / previous_close) * 100
-    
+    previous_close = float(previous_day_data['Close'].iloc[-2])
+    percentage_change = float((current_price - previous_close) / previous_close * 100)
     formatted_change = f"{percentage_change:.2f}%"
+    st.write(type(percentage_change), percentage_change)
 
     if S is None:
         st.error("\u26a0\ufe0f Could not fetch live price for this ticker.")
