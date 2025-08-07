@@ -28,7 +28,7 @@ with st.sidebar:
     # User Input for strategy type
     strategy = st.sidebar.selectbox("Select Strategy", ["Iron Condor", "Short Put", "Short Call"])
     # User input for ticker
-    ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^NDX")
+    ticker_symbol = st.sidebar.text_input("Ticker Symbol", "^SPX")
     st.caption("Enter stock/ETF ticker (e.g. TSLA) or index symbol (e.g. ^SPX for S&P 500)")
     # Checkbox giving user option to enter their own strike(s) (custom strikes)
     use_custom_strikes = st.sidebar.checkbox("Enter my own strike(s)")
